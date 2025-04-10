@@ -47,25 +47,25 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<UserEntity> getUserByEmail(@PathVariable String username) {
+    public ResponseEntity<UserEntity> getUserByUserName(@PathVariable String username) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UserEntity user = (UserEntity) userDetails;
         return ResponseEntity.ok(user);
     }
 
    @GetMapping("/all")
-public ResponseEntity<?> getAllUsers() {
-    List<UserEntity> users = userRepository.findAll();
+    public ResponseEntity<?> getAllUsers() {
+        List<UserEntity> users = userRepository.findAll();
 
-    List<Map<String, Object>> simplifiedUsers = users.stream().map(user -> {
-        Map<String, Object> map = new HashMap<>();
-        map.put("id", user.getId());
-        map.put("name", user.getUsername());
-        map.put("email", user.getEmail());
-        return map;
-    }).collect(Collectors.toList());
+        List<Map<String, Object>> simplifiedUsers = users.stream().map(user -> {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", user.getId());
+            map.put("name", user.getUsername());
+            map.put("email", user.getEmail());
+            return map;
+        }).collect(Collectors.toList());
 
-    return ResponseEntity.ok(simplifiedUsers);
-}
+        return ResponseEntity.ok(simplifiedUsers);
+    }
 
 }
