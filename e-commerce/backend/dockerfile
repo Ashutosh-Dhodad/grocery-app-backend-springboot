@@ -22,8 +22,6 @@ COPY src ./src
 # Package the app
 RUN ./mvnw clean package -DskipTests
 
-RUN apt-get update && apt-get install -y netcat
-RUN nc -zv db.beerdzmstgbhqfjhhhoh.supabase.co 5432
 
 
 # Run the JAR file
