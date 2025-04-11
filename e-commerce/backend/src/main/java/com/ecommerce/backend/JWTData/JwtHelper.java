@@ -39,8 +39,14 @@ public class JwtHelper {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+    
+        // 👇 This will add the first role (like ROLE_admin or ROLE_user) into the token
+        String role = userDetails.getAuthorities().iterator().next().getAuthority();
+        claims.put("role", role);  // 👈 Add role claim
+    
         return createToken(claims, userDetails.getUsername());
     }
+    
 
     private String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
